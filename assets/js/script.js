@@ -3,12 +3,11 @@ $('#currentDay').text(today);
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+var timeBlock = $(".time-block");
 
 $(function () {
   var currentTime = dayjs().format("HH");
   var currentTimeNum = +currentTime;
-  var timeBlock = $(".time-block");
-  var times = [9,10,11,12,13,14,15,16,17]
   var counter = 9;
   timeBlock.each(function(){
     if (counter < currentTimeNum) {
@@ -20,6 +19,32 @@ $(function () {
     }
     counter++
   });
+})
+
+var timeObj = {
+  9: "",
+  10: "",
+  11: "",
+  12: "",
+  13: "",
+  14: "",
+  15: "",
+  16: "",
+  17: "",
+};
+timeBlock.each(function() {
+  var cellTime = $(this).data("time");
+  // time block text
+  var textArea = $(this).children().eq(1);
+  // button
+  var timeBlockBtn = $(this).children().eq(2);
+  // button click event listener
+  timeBlockBtn.click(function() {
+    timeObj[cellTime] = textArea.val()
+    localStorage.setItem("timeObj", JSON.stringify(timeObj))
+  })
+  var getTimeObj = JSON.parse(localStorage.getItem("timeObj")) || [];
+  textArea.append(getTimeObj[cellTime])
 })
 
   // TODO: Add a listener for click events on the save button. This code should
