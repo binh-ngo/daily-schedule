@@ -33,13 +33,15 @@ var timeObj = {
   17: "",
 };
 timeBlock.each(function() {
-  var cellTime = $(this).data("time");
   // time block text
   var textArea = $(this).children().eq(1);
   // button
   var timeBlockBtn = $(this).children().eq(2);
+  // points to the timeblock div's data-type value of "time" in military time
+  var cellTime = $(this).data("time");
   // button click event listener
   timeBlockBtn.click(function() {
+    //sets whatever the user types in the specific time block equal to the corresponding time value to prevent reprints of the obj in the local storage
     timeObj[cellTime] = textArea.val()
     localStorage.setItem("timeObj", JSON.stringify(timeObj))
   })
